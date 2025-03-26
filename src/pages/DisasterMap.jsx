@@ -1,5 +1,5 @@
 import MapComponent from '../components/map/MapComponent';
-import MapControls from '../components/map/MapControls';
+import {MapControls} from '../components/map/MapControls';
 
 const DisasterMap = () => {
   return (

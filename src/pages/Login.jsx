@@ -1,23 +1,24 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { loginSuccess } from '../redux/slices/authSlice';
+// import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { loginSuccess } from '../redux/slices/authSlice';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Mock login - replace with actual API call
-    dispatch(loginSuccess({ 
-      name: 'Admin User', 
-      email: 'admin@drais.org',
-      role: 'admin'
-    }));
-    navigate('/');
+    // dispatch(loginSuccess({ 
+    //   name: 'Admin User', 
+    //   email: 'admin@drais.org',
+    //   role: 'admin'
+    // }));
+    // navigate('/');
+    console.log('Logged in ');
   };
 
   return (

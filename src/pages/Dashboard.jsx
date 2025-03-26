@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
-import AlertSummary from '../components/disaster/AlertSummary';
-import RecentEvents from '../components/disaster/RecentEvents';
-import StatsOverview from '../components/charts/StatsOverview';
+import {AlertSummary} from '../components/disaster/AlertSummary';
+import {RecentEvents} from '../components/disaster/RecentEvents';
+import {StatsOverview} from '../components/disaster/StatsOverview.jsx';
 
-const Dashboard = () => {
+
+export const Dashboard = () => {
   const { user } = useSelector(state => state.auth);
   
   return (
@@ -21,6 +22,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}

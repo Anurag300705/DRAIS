@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-const AlertSummary = () => {
+export const AlertSummary = () => {
   const alerts = useSelector(state => state.disasters.alerts);
 
   return (
@@ -28,4 +28,3 @@ const AlertSummary = () => {
   );
 };
 
-export default AlertSummary;
