@@ -1,23 +1,155 @@
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import {AlertSummary} from '../components/disaster/AlertSummary';
-import {RecentEvents} from '../components/disaster/RecentEvents';
-import {StatsOverview} from '../components/disaster/StatsOverview.jsx';
-
+import { AlertSummary } from '../components/disaster/AlertSummary';
+import { RecentEvents } from '../components/disaster/RecentEvents';
+import { StatsOverview } from '../components/disaster/StatsOverview.jsx';
+import { QuickActions } from '../components/disaster/QuickActions';
+import { WeatherWidget } from '../components/disaster/WeatherWidget';
+import { MapPreview } from '../components/disaster/MapPreview';
 
 export const Dashboard = () => {
   const { user } = useSelector(state => state.auth);
-  
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Check user's preferred color scheme
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setDarkMode(true);
+    }
+  }, []);
+
+  // Apply dark mode class to document
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Welcome, {user?.name || 'Admin'}</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 space-y-6">
-          <AlertSummary />
-          <RecentEvents />
+    <div className={`p-6 space-y-6 min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'}`}>
+      {/* Header Section */}
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold">Welcome back, {user?.name || 'Admin'}</h1>
+          <p className="text-gray-500 dark:text-gray-400">Here's what's happening in your area</p>
         </div>
-        <div className="md:col-span-1">
-          <StatsOverview />
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className={`p-2 rounded-full ${darkMode ? 'bg-gray-700 text-yellow-300' : 'bg-gray-200 text-gray-700'}`}
+          >
+            {darkMode ? (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+              </svg>
+            )}
+          </button>
+          <QuickActions />
+        </div>
+      </div>
+      
+      {/* Main Dashboard Grid - Reorganized layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Left Column - Now contains stats and info panels */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Stats Overview */}
+          <StatsOverview darkMode={darkMode} />
+          
+          {/* Upcoming Tasks */}
+          <div className={`rounded-xl shadow-sm p-4 border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+            <h2 className="text-xl font-semibold mb-4">Upcoming Tasks</h2>
+            <div className="space-y-3">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 h-2 w-2 rounded-full bg-blue-500 mt-2 mr-3"></div>
+                <div>
+                  <p className="font-medium">Team meeting</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Today, 2:00 PM</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="flex-shrink-0 h-2 w-2 rounded-full bg-red-500 mt-2 mr-3"></div>
+                <div>
+                  <p className="font-medium">Report deadline</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Tomorrow, 9:00 AM</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="flex-shrink-0 h-2 w-2 rounded-full bg-yellow-500 mt-2 mr-3"></div>
+                <div>
+                  <p className="font-medium">System maintenance</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Friday, 11:00 PM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Emergency Contacts */}
+          <div className={`rounded-xl shadow-sm p-4 border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+            <h2 className="text-xl font-semibold mb-4">Emergency Contacts</h2>
+            <div className="space-y-3">
+              <div className={`flex items-center p-2 rounded-lg cursor-pointer ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
+                <div className="bg-red-100 dark:bg-red-900/30 p-2 rounded-full mr-3">
+                  <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium">Local Emergency</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">911</p>
+                </div>
+              </div>
+              <div className={`flex items-center p-2 rounded-lg cursor-pointer ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
+                <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full mr-3">
+                  <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium">Fire Department</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">555-1234</p>
+                </div>
+              </div>
+              <div className={`flex items-center p-2 rounded-lg cursor-pointer ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
+                <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-full mr-3">
+                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium">Medical Emergency</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">555-5678</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Right Column - Now contains alert summary, map, and recent events */}
+        <div className="lg:col-span-3 space-y-6">
+          {/* Alert Summary with Weather */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="md:col-span-2">
+              <AlertSummary darkMode={darkMode} />
+            </div>
+            <div className="md:col-span-1">
+              <WeatherWidget darkMode={darkMode} />
+            </div>
+          </div>
+          
+          {/* Map Preview */}
+          <div className={`rounded-xl shadow-sm p-4 border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+            <h2 className="text-xl font-semibold mb-4">Regional Overview</h2>
+            <MapPreview darkMode={darkMode} />
+          </div>
+          
+          {/* Recent Events */}
+          <RecentEvents darkMode={darkMode} />
         </div>
       </div>
     </div>
