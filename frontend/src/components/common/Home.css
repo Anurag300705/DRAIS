@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
     --primary-light: #93c5fd;
@@ -188,13 +188,12 @@ body {
 }
 
 .btn-secondary {
-    background-color: transparent;
-    color: var(--light);
-    border: 2px solid var(--light);
+    background-color: var(--secondary);
+    color: var(--dark);
 }
 
 .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--secondary-dark);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
@@ -460,7 +459,7 @@ footer {
 }
 
 /* Animation classes */
-.fade-in {
+/* .fade-in {
     animation: fadeIn 1s ease-in;
 }
 
@@ -492,4 +491,4 @@ footer {
     100% {
         transform: scale(1);
     }
-}
+} */ */

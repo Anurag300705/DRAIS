@@ -7,6 +7,7 @@ import DisasterMap from './pages/DisasterMap.jsx';
 import Layout from './components/common/Layout.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/common/Home.jsx';
+import {Alert} from './components/common/Alert.jsx';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,12 +16,14 @@ function App() {
     <>
      <BrowserRouter>
       <Routes>
+        <Route path="/alerts" element={<Alert />} />
         <Route path="/login" element={<Login />} />
         <Route path="/map" element={<DisasterMap />} />
         <Route path="/command-center" element={<CommandCenter/>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/layout" element={<Layout />} />
         <Route path="/" element={<Home/>} >
+        
           {/* <Route index element={<Dashboard />} />
           <Route path="map" element={<h1>Map</h1>} />
           <Route path="command-center" element={<CommandCenter />} /> */}
