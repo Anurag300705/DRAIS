@@ -8,6 +8,7 @@ import Layout from './components/common/Layout.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/common/Home.jsx';
 import {Alert} from './components/common/Alert.jsx';
+import { EarthQuake } from './components/models/EarthQuake.jsx';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,10 +20,12 @@ function App() {
         <Route path="/alerts" element={<Alert />} />
         <Route path="/login" element={<Login />} />
         <Route path="/map" element={<DisasterMap />} />
+        <Route path="/EarthQuake" element={<EarthQuake />} />
         <Route path="/command-center" element={<CommandCenter/>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/layout" element={<Layout />} />
         <Route path="/" element={<Home/>} >
+
         
           {/* <Route index element={<Dashboard />} />
           <Route path="map" element={<h1>Map</h1>} />

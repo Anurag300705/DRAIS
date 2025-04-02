@@ -56,10 +56,10 @@ const Home = () => {
   ];
 
   const disasterTypes = [
-    { icon: <WiEarthquake />, name: "Earthquakes" },
-    { icon: <FaFire />, name: "Wildfires" },
-    { icon: <MdFlood />, name: "Floods" },
-    { icon: <WiStormWarning />, name: "Hurricanes" }
+    { icon: <WiEarthquake />, name: "Earthquakes" ,to:"/EarthQuake"},
+    { icon: <FaFire />, name: "Wildfires" ,to:"/wildfires"},
+    { icon: <MdFlood />, name: "Floods" ,to:"/Floods"},
+    { icon: <WiStormWarning />, name: "Hurricanes" ,to:"/Hurricanes"}
   ];
 
   const testimonials = [
@@ -201,7 +201,7 @@ const Home = () => {
           {disasterTypes.map((disaster, index) => (
             <div key={index} className="disaster-card">
               <div className="disaster-icon">{disaster.icon}</div>
-              <h3>{disaster.name}</h3>
+              <NavLink to={disaster.to}><h3>{disaster.name}</h3></NavLink>
             </div>
           ))}
         </div>
@@ -251,7 +251,7 @@ const Home = () => {
                 <label>Incident Type</label>
                 <select>
                   <option value="">Select incident type</option>
-                  <option value="earthquake">Earthquake</option>
+                  {/* <NavLink to='/earthquake'><option value="earthquake">Earthquake</option></NavLink> */}
                   <option value="fire">Fire</option>
                   <option value="flood">Flood</option>
                   <option value="hurricane">Hurricane</option>
