@@ -24,6 +24,7 @@ import { WiEarthquake } from "react-icons/wi";
 // import { GiCrackedBall } from "react-icons/gi";
 import { MdFlood } from "react-icons/md";
 import { WiStormWarning } from "react-icons/wi";
+import {NavLink} from 'react-router-dom'; 
 
 
 const Home = () => {
@@ -142,7 +143,7 @@ const Home = () => {
               <FaMobileAlt /> Download App
             </button>
             <button className="secondary-button">
-              <FaCloud /> Visit Full Site
+              <FaCloud /><NavLink to='/layout'>Visit Full Site</NavLink> 
             </button>
           </div>
         </div>
@@ -284,7 +285,7 @@ const Home = () => {
       </section>
 
       {/* Map Preview */}
-      <section className="map-preview">
+      {/* <section className="map-preview">
         <div className="section-header">
           <h2>Live <span className="highlight">Threat</span> Map</h2>
           <p>Real-time visualization of active incidents and predicted danger zones</p>
@@ -296,16 +297,16 @@ const Home = () => {
             <p>Interactive Live Map Display</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="cta-section">
         <div className="cta-content">
-          <h2>Ready to <span className="highlight">Protect</span> Your Community?</h2>
+          <h2>Ready to Protect Your Community?</h2>
           <p>Join thousands of cities and organizations using DisasterAlert to save lives</p>
           <div className="cta-buttons">
             <button className="primary-button">Request Demo</button>
-            <button className="secondary-button">Contact Sales</button>
+            <button className="primary-button">Contact Sales</button>
           </div>
         </div>
       </section>
