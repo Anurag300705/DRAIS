@@ -1,3 +1,18 @@
+import sys
+import subprocess
+import importlib
+
+def install_dependencies():
+    required = {'numpy', 'pandas', 'sklearn'}
+    for package in required:
+        try:
+            importlib.import_module(package)
+        except ImportError:
+            print(f"Installing {package}...", file=sys.stderr)
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+install_dependencies()
+
 import os
 import pickle
 import sys
