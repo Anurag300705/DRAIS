@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../services/firebase.js';
 // import { loginSuccess } from '../redux/slices/authSlice';
 
 export const Login = () => {
@@ -9,8 +11,8 @@ export const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,19 +20,58 @@ export const Login = () => {
     setIsLoading(true);
     
     try {
-      // Mock API call - replace with actual authentication
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Simulate successful login
+      // Firebase authentication
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+            
+      // Uncomment when redux is ready
       // dispatch(loginSuccess({ 
-      //   name: 'Admin User', 
-      //   email: 'admin@drais.org',
-      //   role: 'admin'
+      //   name: user.displayName || 'User', 
+      //   email: user.email,
+      //   uid: user.uid,
+      //   role: 'admin' // You might want to store roles in your database
       // }));
-      // navigate('/');
+
       console.log('Logged in successfully');
+      // Uncomment to enable navigation
+      // navigate('/');
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
+      console.error('Login error:', err);
+      // Handle specific Firebase auth errors
+      switch (err.code) {
+        case 'auth/invalid-email':
+          setError('Invalid email address format.');
+          break;
+        case 'auth/user-disabled':
+          setError('This account has been disabled.');
+          break;
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+          setError('Invalid login credentials. Please check your email and password.');
+          break;
+        default:
+          setError('Failed to login. Please try again later.');
+      }
+    
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    if (!email) {
+      setError('Please enter your email address first.');
+      return;
+    }
+    
+    try {
+      setIsLoading(true);
+      await sendPasswordResetEmail(auth, email);
+      alert('Password reset email sent. Please check your inbox.');
+    } catch (err) {
+      console.error('Password reset error:', err);
+      setError('Failed to send password reset email. Please check if the email is correct.');
     } finally {
       setIsLoading(false);
     }
@@ -119,9 +160,9 @@ export const Login = () => {
               </div>
               
               <div className="text-sm">
-                <a href="#" className="font-medium text-purple-300 hover:text-purple-200">
-                  Forgot password?
-                </a>
+              <a href="#" onClick={handleForgotPassword} className="font-medium text-purple-300 hover:text-purple-200">
+              Forgot password?
+              </a>
               </div>
             </div>
             
