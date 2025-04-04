@@ -1,7 +1,7 @@
 import MapComponent from '../components/map/MapComponent';
 import {MapControls} from '../components/map/MapControls';
 
-const DisasterMap = () => {
+export const DisasterMap = () => {
   return (
     <div className="h-[calc(100vh-80px)] relative">
       <MapComponent />
@@ -10,4 +10,4 @@ const DisasterMap = () => {
   );
 };
 
-export default DisasterMap;
+// export default DisasterMap;

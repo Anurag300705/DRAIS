@@ -1,21 +1,44 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './NavBar';
 import Sidebar from './Sidebar';
-
+import { useState } from 'react';
+import Alert from '../disaster/AlertForm';
+import TeamManagement from '../disaster/TeamManagement';
+import ResourceAllocation from '../disaster/ResourceAllocation';
 import { Dashboard } from './Dashboard';
 import { NavLink } from 'react-router-dom';
-
+import { DisasterMap } from '../../pages/DisasterMap';
+import CommandCenter from '../../pages/CommandCenter';
+import AlertForm from '../disaster/AlertForm';
 
 const Layout = () => {
   const navItems = [
     { name: 'Dashboard', path: '/', icon: '📊' },
-    { name: 'Disaster Map', path: '/map', icon: '🗺️' },
-    { name: 'Command Center', path: '/command-center', icon: '🚨' },
+    { name: 'DisasterMap', path: '/map', icon: '🗺️' },
+    { name: 'CommandCenter', path: '/command-center', icon: '🚨' },
     { name: 'Alerts', path: '/alerts', icon: '🔔' },
     { name: 'Resources', path: '/resources', icon: '🛠️' },
     { name: 'Teams', path: '/teams', icon: '👥' },
   ];
-
+  const [activeTab, setActiveTab] = useState('dashboard');
+   const renderComponent = () => {
+    switch (activeTab) {
+      case 'Dashboard':
+        return <Dashboard />;
+      case 'DisasterMap':
+        return <DisasterMap />;
+      case 'CommandCenter': 
+        return <CommandCenter />;
+      case 'Alerts':
+        return <AlertForm />; 
+      case 'Resources':
+        return <ResourceAllocation />;
+      case 'Teams':
+        return <TeamManagement />;
+      default:
+        return <Dashboard />;
+    }
+  };
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-800">
       <aside className="w-72 bg-white/10 backdrop-blur-md border-r border-white/10 shadow-xl">
@@ -47,7 +70,8 @@ const Layout = () => {
           {navItems.map((item) => (
             <li key={item.name} className="mb-1">
               <NavLink
-                to={item.path}
+                // to={item.path}
+                onClick={() => setActiveTab(item.name)}
                 className={({ isActive }) =>
                   `flex items-center justify-between space-x-2 px-4 py-3 rounded-lg transition-all duration-200 ${
                     isActive
@@ -100,13 +124,15 @@ const Layout = () => {
         </div> */}
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
-            {/* <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-2xl p-6 border border-white/10"> */}
+            <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-2xl p-6 border border-white/10">
               {/* <h1 className="text-2xl font-bold text-white mb-4">Dashboard</h1> */}
               {/* Main content goes here */}
               {/* <Dashboard/> */}
               {/* Outlet for nested routes */}
               {/* <Outlet /> */}
-            {/* </div> */}
+              {renderComponent()}
+              {/* <h1> {activeTab}</h1> */}
+            </div>
           </div>
         </main>
       </div>
