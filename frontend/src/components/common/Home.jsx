@@ -82,7 +82,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
+
       <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-md z-50">
         <div className="container mx-auto px-4 py-3 md:px-6">
           <div className="flex justify-between items-center">
@@ -126,6 +126,7 @@ const Home = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
+
           </div>
         </div>
       </nav>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AlertForm from '../components/disaster/AlertForm';
+// import AlertForm from '../components/disaster/AlertForm';
 import ResourceAllocation from '../components/disaster/ResourceAllocation';
 import TeamManagement from '../components/disaster/TeamManagement';
 import StatusOverview from '../components/disaster/StatusOverview';
@@ -12,18 +12,18 @@ const CommandCenter = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'alerts', label: 'Alerts', icon: '⚠️' },
-    { id: 'resources', label: 'Resources', icon: '🛠️' },
-    { id: 'teams', label: 'Teams', icon: '👥' },
-    { id: 'contacts', label: 'Contacts', icon: '📞' },
-    { id: 'reports', label: 'Reports', icon: '📑' }
+    { id: 'Crisis-command', label: 'Crisis-Command', icon: '📊' },
+    // { id: 'alerts', label: 'Alerts', icon: '⚠️' },
+    // { id: 'resources', label: 'Resources', icon: '🛠️' },
+    // { id: 'teams', label: 'Teams', icon: '👥' },
+    // { id: 'contacts', label: 'Contacts', icon: '📞' },
+    // { id: 'reports', label: 'Reports', icon: '📑' }
   ];
 
   return (
     <div className={`flex min-h-screen ${darkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'}`}>
       {/* Sidebar */}
-      <div 
+      {/* <div 
         className={`${sidebarOpen ? 'w-64' : 'w-20'} transition-all duration-300 ease-in-out ${
           darkMode ? 'bg-gray-800' : 'bg-white'
         } shadow-lg flex flex-col`}
@@ -69,7 +69,7 @@ const CommandCenter = () => {
             <p>v2.0</p>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
@@ -78,7 +78,7 @@ const CommandCenter = () => {
           darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
         } border-b`}>
           <h2 className="text-xl font-semibold">
-            {tabs.find(tab => tab.id === activeTab)?.label || 'Dashboard'}
+            {tabs.find(tab => tab.id === activeTab)?.label || 'Crisis-command'}
           </h2>
           
           <div className="flex items-center space-x-4">
@@ -147,15 +147,15 @@ const CommandCenter = () => {
             </div>
           )}
           
-          {activeTab === 'alerts' && (
+          {/* {activeTab === 'alerts' && (
             <div className={`rounded-lg shadow overflow-hidden ${
               darkMode ? 'bg-gray-800' : 'bg-white'
             }`}>
               <AlertForm darkMode={darkMode} />
             </div>
-          )}
+          )} */}
           
-          {activeTab === 'resources' && (
+          {/* {activeTab === 'resources' && (
             <div className={`rounded-lg shadow overflow-hidden ${
               darkMode ? 'bg-gray-800' : 'bg-white'
             }`}>
@@ -202,7 +202,7 @@ const CommandCenter = () => {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
         </main>
       </div>
     </div>

@@ -1,8 +1,15 @@
 import { useState } from 'react'
 import './App.css'
+
+import {Login} from './pages/Login.jsx';
+// import {Dashboard} from './pages/Dashboard.jsx';
+
 // import {Login} from './pages/Login.jsx';
 import {Dashboard} from './pages/Dashboard.jsx';
+
 import CommandCenter from './pages/CommandCenter.jsx';
+import ResourceAllocation from './components/disaster/ResourceAllocation.jsx';
+import TeamManagement from './components/disaster/TeamManagement.jsx';
 import DisasterMap from './pages/DisasterMap.jsx';
 import Layout from './components/common/Layout.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -19,6 +26,8 @@ function App() {
     <>
      <BrowserRouter>
       <Routes>
+        <Route path="/resources" element={<ResourceAllocation />} />
+        <Route path="/teams" element={<TeamManagement />} />
         <Route path="/alerts" element={<Alert />} />
         {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/map" element={<DisasterMap />} />
@@ -26,7 +35,6 @@ function App() {
         <Route path="/Flood" element={<Flood />} />
         <Route path="/wildfire" element={<Wildfire/>} />
         <Route path="/command-center" element={<CommandCenter/>} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/layout" element={<Layout />} />
         <Route path="/" element={<Home/>} >
 
