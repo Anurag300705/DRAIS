@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import {Login} from './pages/Login.jsx';
+// import {Login} from './pages/Login.jsx';
 import {Dashboard} from './pages/Dashboard.jsx';
 import CommandCenter from './pages/CommandCenter.jsx';
 import DisasterMap from './pages/DisasterMap.jsx';
@@ -10,6 +10,7 @@ import Home from './components/common/Home.jsx';
 import {Alert} from './components/common/Alert.jsx';
 import { EarthQuake } from './components/models/EarthQuake.jsx';
 import { Flood } from './components/models/Flood.jsx';
+import { Wildfire } from './components/models/WildFire.jsx';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,10 +20,11 @@ function App() {
      <BrowserRouter>
       <Routes>
         <Route path="/alerts" element={<Alert />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/map" element={<DisasterMap />} />
         <Route path="/EarthQuake" element={<EarthQuake />} />
         <Route path="/Flood" element={<Flood />} />
+        <Route path="/wildfire" element={<Wildfire/>} />
         <Route path="/command-center" element={<CommandCenter/>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/layout" element={<Layout />} />
