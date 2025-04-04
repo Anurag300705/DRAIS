@@ -107,9 +107,6 @@ const Home = () => {
             <a href="#contact" onClick={() => setIsMenuOpen(false)}>
               <FaPhoneAlt /> Contact
             </a>
-            <button className="cta-button mobile-only">
-              <FaBell /> Get Alerts
-            </button>
           </div>
           
           <button 

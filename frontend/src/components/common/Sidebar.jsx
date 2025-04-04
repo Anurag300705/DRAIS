@@ -5,7 +5,7 @@ const Sidebar = () => {
     { name: 'Dashboard', path: '/', icon: '📊' },
     { name: 'Disaster Map', path: '/map', icon: '🗺️' },
     { name: 'Command Center', path: '/command-center', icon: '🚨' },
-    { name: 'Alerts', path: '/alerts', icon: '🔔', badge: 3 },
+    { name: 'Alerts', path: '/alerts', icon: '🔔' },
     { name: 'Resources', path: '/resources', icon: '🛠️' },
     { name: 'Teams', path: '/teams', icon: '👥' },
   ];
