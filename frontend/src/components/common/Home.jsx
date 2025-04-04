@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { 
   FaShieldAlt, 
   FaSatelliteDish, 
@@ -18,48 +19,43 @@ import {
   FaInstagram
 } from 'react-icons/fa';
 import { IoMdAlert } from 'react-icons/io';
-// import { GiCrackedBall, FaFire, MdFlood, WiStormWarning } from 'react-icons/gi';
 import { FaFire } from "react-icons/fa";
 import { WiEarthquake } from "react-icons/wi";
-// import { GiCrackedBall } from "react-icons/gi";
 import { MdFlood } from "react-icons/md";
 import { WiStormWarning } from "react-icons/wi";
-import {NavLink} from 'react-router-dom'; 
-
 
 const Home = () => {
-  const [activeTab, setActiveTab] = useState('features');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const features = [
     {
-      icon: <FaSatelliteDish />,
+      icon: <FaSatelliteDish className="text-4xl text-primary-600" />,
       title: "Real-time Monitoring",
       description: "24/7 surveillance using satellite and ground sensors to detect disasters as they emerge"
     },
     {
-      icon: <IoMdAlert />,
+      icon: <IoMdAlert className="text-4xl text-primary-600" />,
       title: "Instant Alerts",
       description: "Push notifications to mobile devices in affected areas within seconds of detection"
     },
     {
-      icon: <FaNetworkWired />,
+      icon: <FaNetworkWired className="text-4xl text-primary-600" />,
       title: "Predictive Analytics",
       description: "AI-powered forecasting to anticipate disaster paths and potential impact zones"
     },
     {
-      icon: <FaUserShield />,
+      icon: <FaUserShield className="text-4xl text-primary-600" />,
       title: "First Responder Coordination",
       description: "Integrated platform for emergency teams to coordinate rescue efforts efficiently"
     }
   ];
 
   const disasterTypes = [
-    { icon: <WiEarthquake />, name: "Earthquakes" ,to:"/EarthQuake"},
-    { icon: <FaFire />, name: "Wildfires" ,to:"/wildfires"},
-    { icon: <MdFlood />, name: "Floods" ,to:"/Floods"},
-    { icon: <WiStormWarning />, name: "Hurricanes" ,to:"/Hurricanes"}
+    { icon: <WiEarthquake className="text-5xl text-orange-500" />, name: "Earthquakes", to:"/EarthQuake"},
+    { icon: <FaFire className="text-5xl text-red-500" />, name: "Wildfires", to:"/wildfires"},
+    { icon: <MdFlood className="text-5xl text-blue-500" />, name: "Floods", to:"/Floods"},
+    { icon: <WiStormWarning className="text-5xl text-purple-500" />, name: "Hurricanes", to:"/Hurricanes"}
   ];
 
   const testimonials = [
@@ -82,1171 +78,361 @@ const Home = () => {
       setCurrentSlide((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
 
   return (
-    <div className="home-container">
+    <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
-      <nav className="navbar">
-        <div className="navbar-container">
-          <div className="logo">
-            <FaShieldAlt className="shield-icon" />
-            <span>DisasterAlert</span>
-          </div>
-          
-          <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-            <a href="#home" onClick={() => setIsMenuOpen(false)}>
-              <FaHome /> Home
-            </a>
-            <a href="#features" onClick={() => setIsMenuOpen(false)}>
-              <FaChartLine /> Features
-            </a>
-            <a href="#report" onClick={() => setIsMenuOpen(false)}>
-              <FaExclamationTriangle /> Report
-            </a>
-            <a href="#contact" onClick={() => setIsMenuOpen(false)}>
-              <FaPhoneAlt /> Contact
-            </a>
-            <button className="cta-button mobile-only">
-              <FaBell /> Get Alerts
+      <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-md z-50">
+        <div className="container mx-auto px-4 py-3 md:px-6">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <FaShieldAlt className="text-indigo-600 text-3xl mr-2" />
+              <span className="text-xl font-bold text-indigo-900">DisasterAlert</span>
+            </div>
+            
+            <div className={`fixed top-0 right-0 h-screen w-64 md:w-auto md:h-auto md:static bg-white md:bg-transparent shadow-2xl md:shadow-none transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out z-50 flex flex-col md:flex-row items-start md:items-center pt-16 md:pt-0 px-6 md:px-0`}>
+              <button 
+                className="absolute top-4 right-4 md:hidden text-gray-500"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              <a href="#home" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
+                <FaHome className="mr-2" /> Home
+              </a>
+              <a href="#features" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
+                <FaChartLine className="mr-2" /> Features
+              </a>
+              <a href="#report" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
+                <FaExclamationTriangle className="mr-2" /> Report
+              </a>
+              <a href="#contact" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
+                <FaPhoneAlt className="mr-2" /> Contact
+              </a>
+              <button className="mt-4 md:mt-0 md:ml-4 px-4 py-2 bg-indigo-600 text-white rounded-lg flex items-center hover:bg-indigo-700 transition-colors">
+                <FaBell className="mr-2" /> Get Alerts
+              </button>
+            </div>
+            
+            <button 
+              className="md:hidden text-gray-700"
+              onClick={() => setIsMenuOpen(true)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
           </div>
-          
-          <button 
-            className="hamburger" 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          
-          <button className="cta-button desktop-only">
-            <FaBell /> Get Alerts
-          </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="hero-section">
-        <div className="particles-container" id="particles-js"></div>
-        <div className="hero-content">
-          <h1>
-            <span className="highlight">Advanced</span> Disaster 
-            <br />Detection & Response
-          </h1>
-          <p className="subtitle">
-            Leveraging AI and IoT to predict, detect, and respond to emergencies faster than ever before
-          </p>
-          <div className="button-group">
-            <button className="primary-button">
-              <FaMobileAlt /> Download App
-            </button>
-            <button className="secondary-button">
-              <FaCloud /><NavLink to='/layout'>Visit Full Site</NavLink> 
-            </button>
+      <section id="home" className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-indigo-50 to-blue-100">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-1/2 mb-10 md:mb-0">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                <span className="text-indigo-600 relative inline-block">Advanced</span> Disaster 
+                <br />Detection & Response
+              </h1>
+              <p className="text-lg text-gray-600 mb-8 max-w-lg">
+                Leveraging AI and IoT to predict, detect, and respond to emergencies faster than ever before
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg flex items-center justify-center hover:bg-indigo-700 transition-colors shadow-md">
+                  <FaMobileAlt className="mr-2" /> Download App
+                </button>
+                <button className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-lg flex items-center justify-center hover:bg-indigo-50 transition-colors">
+                  <FaCloud className="mr-2" />
+                  <NavLink to='/layout'>Visit Full Site</NavLink> 
+                </button>
+              </div>
+            </div>
+            <div className="md:w-1/2 flex justify-center">
+              <img 
+                src="https://illustrations.popsy.co/amber/digital-nomad.svg" 
+                alt="Disaster monitoring" 
+                className="w-full max-w-md animate-float"
+              />
+            </div>
           </div>
-        </div>
-        <div className="hero-image">
-          <img src="https://illustrations.popsy.co/amber/digital-nomad.svg" alt="Disaster monitoring" />
         </div>
       </section>
 
       {/* Stats Bar */}
-      <div className="stats-bar">
-        <div className="stat-item">
-          <div className="stat-number">24/7</div>
-          <div className="stat-label">Monitoring</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">98%</div>
-          <div className="stat-label">Accuracy</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">3.2s</div>
-          <div className="stat-label">Alert Speed</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">142+</div>
-          <div className="stat-label">Cities Protected</div>
+      <div className="bg-indigo-800 text-white py-8">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+              <div className="text-3xl font-bold mb-1">24/7</div>
+              <div className="text-indigo-200">Monitoring</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-1">98%</div>
+              <div className="text-indigo-200">Accuracy</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-1">3.2s</div>
+              <div className="text-indigo-200">Alert Speed</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold mb-1">142+</div>
+              <div className="text-indigo-200">Cities Protected</div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Features Section */}
-      <section id="features" className="features-section">
-        <div className="section-header">
-          <h2>How DisasterAlert <span className="highlight">Protects</span> You</h2>
-          <p>Our cutting-edge system combines multiple technologies to keep communities safe</p>
-        </div>
-        
-        <div className="features-grid">
-          {features.map((feature, index) => (
-            <div key={index} className="feature-card">
-              <div className="feature-icon">{feature.icon}</div>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Disaster Types */}
-      <section className="disaster-types">
-        <div className="section-header">
-          <h2>We Monitor <span className="highlight">All</span> Threats</h2>
-          <p>From natural disasters to industrial accidents, our system detects them all</p>
-        </div>
-        
-        <div className="disaster-grid">
-          {disasterTypes.map((disaster, index) => (
-            <div key={index} className="disaster-card">
-              <div className="disaster-icon">{disaster.icon}</div>
-              <NavLink to={disaster.to}><h3>{disaster.name}</h3></NavLink>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="testimonials">
-        <div className="section-header">
-          <h2>Trusted by <span className="highlight">Thousands</span></h2>
-          <p>Hear what emergency responders and citizens say about our system</p>
-        </div>
-        
-        <div className="testimonial-slider">
-          {testimonials.map((testimonial, index) => (
-            <div 
-              key={index} 
-              className={`testimonial-card ${index === currentSlide ? 'active' : ''}`}
-            >
-              <p className="quote">"{testimonial.quote}"</p>
-              <p className="author">— {testimonial.author}</p>
-            </div>
-          ))}
-          <div className="slider-dots">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`dot ${index === currentSlide ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(index)}
-              />
+      <section id="features" className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              How DisasterAlert <span className="text-indigo-600">Protects</span> You
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Our cutting-edge system combines multiple technologies to keep communities safe
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow transform hover:-translate-y-1 duration-300">
+                <div className="mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Report Section */}
-      <section id="report" className="report-section">
-        <div className="report-container">
-          <div className="report-image">
-            <img src="https://illustrations.popsy.co/amber/security.svg" alt="Emergency report" />
+      {/* Disaster Types */}
+      <section className="py-16 md:py-24 bg-gray-100">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              We Monitor <span className="text-indigo-600">All</span> Threats
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              From natural disasters to industrial accidents, our system detects them all
+            </p>
           </div>
-          <div className="report-form">
-            <h2>Report an <span className="highlight">Emergency</span></h2>
-            <p>Submit real-time disaster information to alert authorities and nearby citizens</p>
-            
-            <form>
-              <div className="form-group">
-                <label>Incident Type</label>
-                <select>
-                  <option value="">Select incident type</option>
-                  {/* <NavLink to='/earthquake'><option value="earthquake">Earthquake</option></NavLink> */}
-                  <option value="fire">Fire</option>
-                  <option value="flood">Flood</option>
-                  <option value="hurricane">Hurricane</option>
-                  <option value="other">Other</option>
-                </select>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {disasterTypes.map((disaster, index) => (
+              <div key={index} className="bg-white rounded-xl p-6 shadow-md text-center hover:shadow-lg transition-shadow">
+                <div className="flex justify-center mb-4">{disaster.icon}</div>
+                <NavLink to={disaster.to} className="text-lg font-semibold hover:text-indigo-600 transition-colors">
+                  {disaster.name}
+                </NavLink>
               </div>
-              
-              <div className="form-group">
-                <label>Location</label>
-                <input type="text" placeholder="Enter location or use map" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Trusted by <span className="text-indigo-600">Thousands</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Hear what emergency responders and citizens say about our system
+            </p>
+          </div>
+          
+          <div className="max-w-3xl mx-auto relative h-64 md:h-56">
+            {testimonials.map((testimonial, index) => (
+              <div 
+                key={index} 
+                className={`absolute top-0 left-0 w-full bg-gray-50 rounded-xl p-8 shadow-md transition-opacity duration-500 ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+              >
+                <p className="text-lg italic text-gray-700 mb-4">"{testimonial.quote}"</p>
+                <p className="font-medium text-indigo-600">— {testimonial.author}</p>
               </div>
+            ))}
+            <div className="absolute -bottom-10 left-0 right-0 flex justify-center gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-colors ${index === currentSlide ? 'bg-indigo-600' : 'bg-gray-300'}`}
+                  onClick={() => setCurrentSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Report Section */}
+      <section id="report" className="py-16 md:py-24 bg-gray-100 ">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            {/* <div className="md:w-1/2">
+              <img 
+                src="https://illustrations.popsy.co/amber/security.svg" 
+                alt="Emergency report" 
+                className="w-full max-w-md mx-auto"
+              />
+            </div> */}
+            <div className="md:w-1/2 bg-white rounded-xl p-8 shadow-lg">
+              <h2 className="text-3xl font-bold mb-4">
+                Report an <span className="text-indigo-600">Emergency</span>
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Submit real-time disaster information to alert authorities and nearby citizens
+              </p>
               
-              <div className="form-group">
-                <label>Severity (1-10)</label>
-                <div className="severity-slider">
-                  <input type="range" min="1" max="10" defaultValue="5" />
-                  <div className="severity-labels">
+              <form className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Incident Type</label>
+                  <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">Select incident type</option>
+                    <option value="fire">Fire</option>
+                    <option value="flood">Flood</option>
+                    <option value="hurricane">Hurricane</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                  <input 
+                    type="text" 
+                    placeholder="Enter location or use map" 
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Severity (1-10)</label>
+                  <input 
+                    type="range" 
+                    min="1" 
+                    max="10" 
+                    defaultValue="5"
+                    className="w-full h-2 bg-gradient-to-r from-green-500 via-yellow-500 to-red-500 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
                     <span>1 (Mild)</span>
                     <span>5 (Moderate)</span>
                     <span>10 (Critical)</span>
                   </div>
                 </div>
-              </div>
-              
-              <button type="submit" className="submit-button">
-                <FaExclamationTriangle /> Send Emergency Alert
-              </button>
-            </form>
+                
+                <button 
+                  type="submit" 
+                  className="w-full py-3 bg-red-600 text-white rounded-lg font-medium flex items-center justify-center hover:bg-red-700 transition-colors shadow-md"
+                >
+                  <FaExclamationTriangle className="mr-2" /> Send Emergency Alert
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Map Preview */}
-      {/* <section className="map-preview">
-        <div className="section-header">
-          <h2>Live <span className="highlight">Threat</span> Map</h2>
-          <p>Real-time visualization of active incidents and predicted danger zones</p>
-        </div>
-        
-        <div className="map-container">
-          <div className="map-placeholder">
-            <FaMapMarkedAlt className="map-icon" />
-            <p>Interactive Live Map Display</p>
-          </div>
-        </div>
-      </section> */}
-
       {/* CTA Section */}
-      <section className="cta-section">
-        <div className="cta-content">
-          <h2>Ready to Protect Your Community?</h2>
-          <p>Join thousands of cities and organizations using DisasterAlert to save lives</p>
-          <div className="cta-buttons">
-            <button className="primary-button">Request Demo</button>
-            <button className="primary-button">Contact Sales</button>
+      <section className="py-16 md:py-24 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Protect Your Community?</h2>
+          <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of cities and organizations using DisasterAlert to save lives
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="px-6 py-3 bg-white text-indigo-700 rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-md">
+              Request Demo
+            </button>
+            <button className="px-6 py-3 bg-indigo-500 text-white border border-indigo-400 rounded-lg font-medium hover:bg-indigo-400 transition-colors shadow-md">
+              Contact Sales
+            </button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="footer">
-        <div className="footer-container">
-          <div className="footer-brand">
-            <div className="logo">
-              <FaShieldAlt className="shield-icon" />
-              <span>DisasterAlert</span>
+      <footer id="contact" className="bg-gray-900 text-white">
+        <div className="container mx-auto px-4 md:px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Brand Section */}
+            <div className="col-span-1 md:col-span-1">
+              <div className="flex items-center mb-4">
+                <FaShieldAlt className="text-indigo-500 text-2xl mr-2" />
+                <span className="text-xl font-bold">DisasterAlert</span>
+              </div>
+              <p className="text-gray-400 mb-4">Advanced Disaster Detection & Response System</p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                  <FaTwitter className="text-xl" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                  <FaFacebook className="text-xl" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                  <FaLinkedin className="text-xl" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                  <FaInstagram className="text-xl" />
+                </a>
+              </div>
             </div>
-            <p>Advanced Disaster Detection & Response System</p>
-            <div className="social-links">
-              <a href="#"><FaTwitter /></a>
-              <a href="#"><FaFacebook /></a>
-              <a href="#"><FaLinkedin /></a>
-              <a href="#"><FaInstagram /></a>
+
+            {/* Links */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Product</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">API</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Integrations</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Resources</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Case Studies</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Support</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Partners</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+              </ul>
             </div>
           </div>
-          
-          <div className="footer-links">
-            <div className="link-group">
-              <h3>Product</h3>
-              <a href="#">Features</a>
-              <a href="#">Pricing</a>
-              <a href="#">API</a>
-              <a href="#">Integrations</a>
+
+          {/* Bottom Footer */}
+          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm mb-4 md:mb-0">
+              &copy; {new Date().getFullYear()} DisasterAlert. All rights reserved.
+            </p>
+            <div className="flex space-x-6">
+              <a href="#" className="text-gray-500 hover:text-white text-sm transition-colors">Privacy Policy</a>
+              <a href="#" className="text-gray-500 hover:text-white text-sm transition-colors">Terms of Service</a>
+              <a href="#" className="text-gray-500 hover:text-white text-sm transition-colors">Cookie Policy</a>
             </div>
-            
-            <div className="link-group">
-              <h3>Resources</h3>
-              <a href="#">Documentation</a>
-              <a href="#">Case Studies</a>
-              <a href="#">Blog</a>
-              <a href="#">Support</a>
-            </div>
-            
-            <div className="link-group">
-              <h3>Company</h3>
-              <a href="#">About</a>
-              <a href="#">Careers</a>
-              <a href="#">Partners</a>
-              <a href="#">Contact</a>
-            </div>
-          </div>
-        </div>
-        
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} DisasterAlert. All rights reserved.</p>
-          <div className="legal-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Cookie Policy</a>
           </div>
         </div>
       </footer>
-
-      <style jsx>{`
-        :root {
-          --primary: #4361ee;
-          --primary-dark: #3a0ca3;
-          --primary-light: #4895ef;
-          --secondary: #f72585;
-          --accent: #4cc9f0;
-          --light: #f8f9fa;
-          --dark: #212529;
-          --gray: #6c757d;
-          --light-gray: #e9ecef;
-          --danger: #ef233c;
-          --success: #2b9348;
-          --warning: #ff9e00;
-          --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-          --shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-          --shadow-md: 0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1);
-          --shadow-lg: 0 15px 30px rgba(0,0,0,0.11), 0 5px 15px rgba(0,0,0,0.08);
-          --rounded-sm: 4px;
-          --rounded: 8px;
-          --rounded-lg: 12px;
-          --rounded-xl: 16px;
-          --rounded-full: 9999px;
-        }
-
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        body {
-          background-color: var(--light);
-          color: var(--dark);
-          line-height: 1.6;
-          overflow-x: hidden;
-        }
-
-        .home-container {
-          max-width: 100vw;
-          overflow-x: hidden;
-        }
-
-        /* Navigation */
-        .navbar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          background-color: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          box-shadow: var(--shadow-sm);
-          z-index: 1000;
-          padding: 1rem 0;
-          transition: all 0.3s ease;
-        }
-
-        .navbar-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 2rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .logo {
-          display: flex;
-          align-items: center;
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--primary-dark);
-          text-decoration: none;
-        }
-
-        .shield-icon {
-          color: var(--primary);
-          margin-right: 0.5rem;
-          font-size: 1.8rem;
-        }
-
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: 2rem;
-        }
-
-        .nav-links a {
-          color: var(--dark);
-          text-decoration: none;
-          font-weight: 500;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          transition: color 0.3s ease;
-          position: relative;
-        }
-
-        .nav-links a:hover {
-          color: var(--primary);
-        }
-
-        .nav-links a::after {
-          content: '';
-          position: absolute;
-          bottom: -4px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background-color: var(--primary);
-          transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-          width: 100%;
-        }
-
-        .cta-button {
-          background-color: var(--primary);
-          color: white;
-          border: none;
-          padding: 0.75rem 1.5rem;
-          border-radius: var(--rounded-lg);
-          font-weight: 600;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          transition: all 0.3s ease;
-          box-shadow: var(--shadow-sm);
-        }
-
-        .cta-button:hover {
-          background-color: var(--primary-dark);
-          transform: translateY(-2px);
-          box-shadow: var(--shadow);
-        }
-
-        .hamburger {
-          display: none;
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 0.5rem;
-          z-index: 1001;
-        }
-
-        .hamburger span {
-          display: block;
-          width: 25px;
-          height: 3px;
-          background-color: var(--dark);
-          margin: 4px 0;
-          transition: all 0.3s ease;
-        }
-
-        /* Hero Section */
-        .hero-section {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          padding: 8rem 2rem 4rem;
-          position: relative;
-          overflow: hidden;
-          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-
-        .particles-container {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 1;
-        }
-
-        .hero-content {
-          flex: 1;
-          max-width: 600px;
-          z-index: 2;
-        }
-
-        .hero-content h1 {
-          font-size: 3.5rem;
-          margin-bottom: 1.5rem;
-          line-height: 1.2;
-        }
-
-        .highlight {
-          color: var(--primary);
-          position: relative;
-          display: inline-block;
-        }
-
-        .highlight::after {
-          content: '';
-          position: absolute;
-          bottom: 5px;
-          left: 0;
-          width: 100%;
-          height: 10px;
-          background-color: rgba(67, 97, 238, 0.2);
-          z-index: -1;
-          transform: skewX(-15deg);
-        }
-
-        .subtitle {
-          font-size: 1.25rem;
-          color: var(--gray);
-          margin-bottom: 2rem;
-          max-width: 500px;
-        }
-
-        .button-group {
-          display: flex;
-          gap: 1rem;
-          margin-top: 2rem;
-        }
-
-        .primary-button {
-          background-color: var(--primary);
-          color: white;
-          border: none;
-          padding: 1rem 2rem;
-          border-radius: var(--rounded-lg);
-          font-weight: 600;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          transition: all 0.3s ease;
-          box-shadow: var(--shadow);
-        }
-
-        .primary-button:hover {
-          background-color: var(--primary-dark);
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-md);
-        }
-
-        .secondary-button {
-          background-color: transparent;
-          color: var(--primary);
-          border: 2px solid var(--primary);
-          padding: 1rem 2rem;
-          border-radius: var(--rounded-lg);
-          font-weight: 600;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          transition: all 0.3s ease;
-        }
-
-        .secondary-button:hover {
-          background-color: rgba(67, 97, 238, 0.1);
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-sm);
-        }
-
-        .hero-image {
-          flex: 1;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 2;
-        }
-
-        .hero-image img {
-          max-width: 100%;
-          height: auto;
-          animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-          100% { transform: translateY(0px); }
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-          background-color: var(--primary-dark);
-          color: white;
-          padding: 2rem;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 1rem;
-          position: relative;
-          z-index: 10;
-          box-shadow: var(--shadow-md);
-        }
-
-        .stat-item {
-          text-align: center;
-          padding: 0 1rem;
-        }
-
-        .stat-number {
-          font-size: 2rem;
-          font-weight: 700;
-          margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-          font-size: 1rem;
-          opacity: 0.9;
-        }
-
-        /* Features Section */
-        .features-section {
-          padding: 6rem 2rem;
-          background-color: white;
-        }
-
-        .section-header {
-          text-align: center;
-          max-width: 700px;
-          margin: 0 auto 3rem;
-        }
-
-        .section-header h2 {
-          font-size: 2.5rem;
-          margin-bottom: 1rem;
-        }
-
-        .section-header p {
-          font-size: 1.1rem;
-          color: var(--gray);
-        }
-
-        .features-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 2rem;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .feature-card {
-          background-color: var(--light);
-          border-radius: var(--rounded-xl);
-          padding: 2rem;
-          transition: all 0.3s ease;
-          box-shadow: var(--shadow-sm);
-          text-align: center;
-        }
-
-        .feature-card:hover {
-          transform: translateY(-10px);
-          box-shadow: var(--shadow-lg);
-        }
-
-        .feature-icon {
-          font-size: 2.5rem;
-          color: var(--primary);
-          margin-bottom: 1.5rem;
-        }
-
-        .feature-card h3 {
-          font-size: 1.5rem;
-          margin-bottom: 1rem;
-        }
-
-        .feature-card p {
-          color: var(--gray);
-        }
-
-        /* Disaster Types */
-        .disaster-types {
-          padding: 6rem 2rem;
-          background-color: var(--light-gray);
-        }
-
-        .disaster-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 2rem;
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .disaster-card {
-          background-color: white;
-          border-radius: var(--rounded-xl);
-          padding: 2rem;
-          text-align: center;
-          transition: all 0.3s ease;
-          box-shadow: var(--shadow-sm);
-        }
-
-        .disaster-card:hover {
-          transform: scale(1.05);
-          box-shadow: var(--shadow);
-        }
-
-        .disaster-icon {
-          font-size: 3rem;
-          color: var(--danger);
-          margin-bottom: 1rem;
-        }
-
-        .disaster-card h3 {
-          font-size: 1.25rem;
-        }
-
-        /* Testimonials */
-        .testimonials {
-          padding: 6rem 2rem;
-          background-color: white;
-        }
-
-        .testimonial-slider {
-          max-width: 800px;
-          margin: 0 auto;
-          position: relative;
-          height: 250px;
-        }
-
-        .testimonial-card {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          opacity: 0;
-          transition: opacity 0.5s ease;
-          background-color: var(--light);
-          padding: 2rem;
-          border-radius: var(--rounded-xl);
-          box-shadow: var(--shadow-sm);
-          text-align: center;
-        }
-
-        .testimonial-card.active {
-          opacity: 1;
-        }
-
-        .quote {
-          font-size: 1.25rem;
-          font-style: italic;
-          margin-bottom: 1rem;
-          color: var(--dark);
-        }
-
-        .author {
-          font-weight: 600;
-          color: var(--primary);
-        }
-
-        .slider-dots {
-          display: flex;
-          justify-content: center;
-          gap: 0.5rem;
-          margin-top: 2rem;
-        }
-
-        .dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background-color: var(--light-gray);
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .dot.active {
-          background-color: var(--primary);
-          transform: scale(1.2);
-        }
-
-        /* Report Section */
-        .report-section {
-          padding: 6rem 2rem;
-          background-color: var(--light-gray);
-        }
-
-        .report-container {
-          display: flex;
-          align-items: center;
-          max-width: 1200px;
-          margin: 0 auto;
-          gap: 3rem;
-        }
-
-        .report-image {
-          flex: 1;
-        }
-
-        .report-image img {
-          max-width: 100%;
-          height: auto;
-        }
-
-        .report-form {
-          flex: 1;
-          background-color: white;
-          padding: 2rem;
-          border-radius: var(--rounded-xl);
-          box-shadow: var(--shadow);
-        }
-
-        .report-form h2 {
-          font-size: 2rem;
-          margin-bottom: 1rem;
-        }
-
-        .report-form p {
-          color: var(--gray);
-          margin-bottom: 2rem;
-        }
-
-        .form-group {
-          margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-          display: block;
-          margin-bottom: 0.5rem;
-          font-weight: 600;
-        }
-
-        .form-group select,
-        .form-group input {
-          width: 100%;
-          padding: 0.75rem 1rem;
-          border: 1px solid var(--light-gray);
-          border-radius: var(--rounded);
-          font-size: 1rem;
-          transition: all 0.3s ease;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus {
-          outline: none;
-          border-color: var(--primary);
-          box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-        }
-
-        .severity-slider {
-          margin-top: 0.5rem;
-        }
-
-        .severity-slider input[type="range"] {
-          width: 100%;
-          height: 8px;
-          -webkit-appearance: none;
-          background: linear-gradient(to right, var(--success), var(--warning), var(--danger));
-          border-radius: 4px;
-          outline: none;
-        }
-
-        .severity-slider input[type="range"]::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          width: 20px;
-          height: 20px;
-          background: white;
-          border: 2px solid var(--primary);
-          border-radius: 50%;
-          cursor: pointer;
-        }
-
-        .severity-labels {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 0.5rem;
-          font-size: 0.8rem;
-          color: var(--gray);
-        }
-
-        .submit-button {
-          width: 100%;
-          background-color: var(--danger);
-          color: white;
-          border: none;
-          padding: 1rem;
-          border-radius: var(--rounded);
-          font-weight: 600;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          transition: all 0.3s ease;
-          margin-top: 1rem;
-        }
-
-        .submit-button:hover {
-          background-color: #d90429;
-          transform: translateY(-2px);
-          box-shadow: var(--shadow);
-        }
-
-        /* Map Preview */
-        .map-preview {
-          padding: 6rem 2rem;
-          background-color: white;
-        }
-
-        .map-container {
-          height: 500px;
-          background-color: var(--light-gray);
-          border-radius: var(--rounded-xl);
-          margin-top: 2rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .map-placeholder {
-          text-align: center;
-        }
-
-        .map-icon {
-          font-size: 3rem;
-          color: var(--primary);
-          margin-bottom: 1rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-          padding: 6rem 2rem;
-          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-          color: white;
-          text-align: center;
-        }
-
-        .cta-content {
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .cta-content h2 {
-          font-size: 2.5rem;
-          margin-bottom: 1rem;
-        }
-
-        .cta-content p {
-          font-size: 1.1rem;
-          opacity: 0.9;
-          margin-bottom: 2rem;
-        }
-
-        .cta-buttons {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-        }
-
-        /* Footer */
-        .footer {
-          background-color: var(--dark);
-          color: white;
-          padding: 4rem 2rem 2rem;
-        }
-
-        .footer-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 3rem;
-        }
-
-        .footer-brand {
-          max-width: 300px;
-        }
-
-        .footer-brand .logo {
-          margin-bottom: 1rem;
-          color: white;
-        }
-
-        .footer-brand p {
-          opacity: 0.8;
-          margin-bottom: 1.5rem;
-        }
-
-        .social-links {
-          display: flex;
-          gap: 1rem;
-        }
-
-        .social-links a {
-          color: white;
-          font-size: 1.2rem;
-          transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-          color: var(--accent);
-          transform: translateY(-3px);
-        }
-
-        .footer-links {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          gap: 2rem;
-        }
-
-        .link-group {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .link-group h3 {
-          font-size: 1.2rem;
-          margin-bottom: 1rem;
-          color: white;
-        }
-
-        .link-group a {
-          color: rgba(255, 255, 255, 0.7);
-          text-decoration: none;
-          margin-bottom: 0.5rem;
-          transition: all 0.3s ease;
-        }
-
-        .link-group a:hover {
-          color: white;
-          transform: translateX(5px);
-        }
-
-        .footer-bottom {
-          max-width: 1200px;
-          margin: 3rem auto 0;
-          padding-top: 2rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 1rem;
-        }
-
-        .footer-bottom p {
-          opacity: 0.7;
-          font-size: 0.9rem;
-        }
-
-        .legal-links {
-          display: flex;
-          gap: 1.5rem;
-        }
-
-        .legal-links a {
-          color: rgba(255, 255, 255, 0.7);
-          text-decoration: none;
-          font-size: 0.9rem;
-          transition: all 0.3s ease;
-        }
-
-        .legal-links a:hover {
-          color: white;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 1024px) {
-          .hero-content h1 {
-            font-size: 3rem;
-          }
-          
-          .report-container {
-            flex-direction: column;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .navbar-container {
-            padding: 0 1.5rem;
-          }
-          
-          .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            max-width: 300px;
-            height: 100vh;
-            background-color: white;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 6rem 2rem 2rem;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            transition: right 0.3s ease;
-          }
-          
-          .nav-links.active {
-            right: 0;
-          }
-          
-          .hamburger {
-            display: block;
-          }
-          
-          .nav-links a {
-            padding: 1rem 0;
-            font-size: 1.1rem;
-          }
-          
-          .cta-button.desktop-only {
-            display: none;
-          }
-          
-          .cta-button.mobile-only {
-            display: flex;
-            width: 100%;
-            margin-top: 1rem;
-          }
-          
-          .hero-section {
-            flex-direction: column;
-            padding: 7rem 1.5rem 3rem;
-            text-align: center;
-          }
-          
-          .hero-content {
-            max-width: 100%;
-            margin-bottom: 3rem;
-          }
-          
-          .hero-content h1 {
-            font-size: 2.5rem;
-          }
-          
-          .subtitle {
-            margin-left: auto;
-            margin-right: auto;
-          }
-          
-          .button-group {
-            justify-content: center;
-          }
-          
-          .section-header h2 {
-            font-size: 2rem;
-          }
-          
-          .stats-bar {
-            padding: 1.5rem;
-          }
-          
-          .stat-item {
-            padding: 0 0.5rem;
-          }
-          
-          .stat-number {
-            font-size: 1.5rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .button-group {
-            flex-direction: column;
-          }
-          
-          .hero-content h1 {
-            font-size: 2rem;
-          }
-          
-          .subtitle {
-            font-size: 1.1rem;
-          }
-          
-          .stats-bar {
-            flex-direction: column;
-            gap: 1.5rem;
-          }
-          
-          .cta-buttons {
-            flex-direction: column;
-          }
-        }
-      `}</style>
     </div>
   );
 };
 
 export default Home;
+
