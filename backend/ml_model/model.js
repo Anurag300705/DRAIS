@@ -4,7 +4,7 @@ const path = require('path');
 const PYTHON_PATH = 'C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
 const predict = (input) => {
   return new Promise((resolve, reject) => {
-    const pythonProcess = spawn(PYTHON_PATH, [
+    const pythonProcess = spawn('python', [
       path.join(__dirname, 'predict.py'),
       JSON.stringify(input)
     ]);

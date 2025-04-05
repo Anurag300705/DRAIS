@@ -8,7 +8,7 @@ const predictFlood = async (inputData) => {
     return new Promise((resolve, reject) => {
         console.log(`Using Python at: ${PYTHON_PATH}`);
         
-        const pythonProcess = spawn(PYTHON_PATH, [
+        const pythonProcess = spawn('python', [
             path.join(__dirname, 'flood_model.py'),
             JSON.stringify(inputData)
         ]);
