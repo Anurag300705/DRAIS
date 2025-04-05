@@ -10,6 +10,9 @@ import { NavLink } from 'react-router-dom';
 import { DisasterMap } from '../../pages/DisasterMap';
 import CommandCenter from '../../pages/CommandCenter';
 import AlertForm from '../disaster/AlertForm';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Layout = () => {
   const navItems = [
@@ -21,7 +24,15 @@ const Layout = () => {
     { name: 'Teams', path: '/teams', icon: '👥' },
   ];
   const [activeTab, setActiveTab] = useState('dashboard');
-   const renderComponent = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
+  const renderComponent = () => {
     switch (activeTab) {
       case 'Dashboard':
         return <Dashboard />;
@@ -103,17 +114,20 @@ const Layout = () => {
         </button>
       </div>
 
-      {/* User Profile */}
+      {/* Logout Button (Replacing User Profile) */}
       <div className="absolute bottom-20 left-0 right-0 px-4">
-        <div className="flex items-center p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white">
-            AI
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center p-3 rounded-lg hover:bg-white/20 transition-all duration-200 cursor-pointer"
+        >
+          <div className="h-10 w-10  flex items-center justify-center text-white">
+            🚪
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-white">Admin User</p>
-            <p className="text-xs text-white/50">System Administrator</p>
+            <p className="text-s font-medium text-white">Log Out</p>
+            <p className="text-xs text-white/50">End current session</p>
           </div>
-        </div>
+        </button>
       </div>
     </aside>
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -134,10 +148,13 @@ const Layout = () => {
               {/* <h1> {activeTab}</h1> */}
             </div>
           </div>
+          
         </main>
       </div>
     </div>
+    
   );
+  
 };
 
 export default Layout;

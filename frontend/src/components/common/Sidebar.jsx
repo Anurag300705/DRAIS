@@ -1,4 +1,8 @@
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
+
 
 const Sidebar = () => {
   const navItems = [
@@ -9,6 +13,15 @@ const Sidebar = () => {
     { name: 'Resources', path: '/resources', icon: '🛠️' },
     { name: 'Teams', path: '/teams', icon: '👥' },
   ];
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
 
   return (
     <aside className="w-72 bg-white/10 backdrop-blur-md border-r border-white/10 shadow-xl">
@@ -72,18 +85,17 @@ const Sidebar = () => {
         </button>
       </div>
 
-      {/* User Profile */}
+      {/* Logout Button */}
       <div className="absolute bottom-20 left-0 right-0 px-4">
-        <div className="flex items-center p-3 rounded-lg hover:bg-white/10 transition-all duration-200 cursor-pointer">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white">
-            AI
-          </div>
-          <div className="ml-3">
-            <p className="text-sm font-medium text-white">Admin User</p>
-            <p className="text-xs text-white/50">System Administrator</p>
-          </div>
-        </div>
+        <button
+          onClick={handleLogout}
+          className="w-full bg-white/10 text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-white/20 transition-all duration-200"
+        >
+          <span className="text-xl">🚪</span>
+          <span>Log Out</span>
+        </button>
       </div>
+
     </aside>
   );
 };
