@@ -14,6 +14,7 @@ import { Alert } from './components/common/Alert.jsx';
 import { EarthQuake } from './components/models/EarthQuake.jsx';
 import { Flood } from './components/models/Flood.jsx';
 import { Wildfire } from './components/models/WildFire.jsx';
+import { SignUp } from './pages/SignUp.jsx';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -48,6 +49,7 @@ function App() {
           ) : (
             <>
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
               <Route path="*" element={<Login />} />
             </>
           )}
@@ -57,10 +59,11 @@ function App() {
       {user && (
         <div className="user-info">
           <h2>Welcome, {user.name}</h2>
+          <p>{user.email}</p>
           {/* Add other user details as needed */}
         </div>
       )}
-      <h1>Arunanshu</h1>
+      
     </>
   );
 }
