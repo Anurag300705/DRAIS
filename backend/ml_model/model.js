@@ -1,10 +1,10 @@
 const { spawn } = require('child_process');
 const path = require('path');
 
-const PYTHON_PATH = 'C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+// const PYTHON_PATH = 'C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
 const predict = (input) => {
   return new Promise((resolve, reject) => {
-    const pythonProcess = spawn('python', [
+    const pythonProcess = spawn('python3', [
       path.join(__dirname, 'predict.py'),
       JSON.stringify(input)
     ]);
