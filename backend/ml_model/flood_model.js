@@ -2,13 +2,13 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 // 1. Use absolute path to your Python executable
-const PYTHON_PATH = 'C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+// const PYTHON_PATH = 'C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
 
 const predictFlood = async (inputData) => {
     return new Promise((resolve, reject) => {
-        console.log(`Using Python at: ${PYTHON_PATH}`);
+        // console.log(`Using Python at: ${PYTHON_PATH}`);
         
-        const pythonProcess = spawn('python', [
+        const pythonProcess = spawn('python3', [
             path.join(__dirname, 'flood_model.py'),
             JSON.stringify(inputData)
         ]);
