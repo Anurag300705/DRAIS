@@ -6,7 +6,7 @@ import { Dashboard } from './pages/Dashboard.jsx';
 import CommandCenter from './pages/CommandCenter.jsx';
 import ResourceAllocation from './components/disaster/ResourceAllocation.jsx';
 import TeamManagement from './components/disaster/TeamManagement.jsx';
-import DisasterMap from './pages/DisasterMap.jsx';
+import {DisasterMap} from './pages/DisasterMap.jsx';
 import Layout from './components/common/Layout.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/common/Home.jsx';
