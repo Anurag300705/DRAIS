@@ -88,18 +88,18 @@ const CommandCenter = () => {
               Live Mode
             </div>
             
-            <button 
+            {/* <button 
               onClick={() => setDarkMode(!darkMode)}
               className={`p-2 rounded-full ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
             >
               {darkMode ? '☀️' : '🌙'}
-            </button>
+            </button> */}
             
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+            {/* <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
               darkMode ? 'bg-blue-600' : 'bg-blue-100 text-blue-700'
             }`}>
               👤
-            </div>
+            </div> */}
           </div>
         </header>
 
