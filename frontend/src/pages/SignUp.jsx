@@ -1,3 +1,4 @@
+// SignUp.jsx
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -227,10 +228,10 @@ export const SignUp = () => {
                   className="w-full bg-white/10 border border-white/20 rounded-lg py-2 px-4 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   required
                 >
-                  <option value="" disabled>Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  <option value="" disabled className="text-black">Select Gender</option>
+                  <option value="male" className="text-black">Male</option>
+                  <option value="female" className="text-black">Female</option>
+                  <option value="other" className="text-black">Other</option>
                 </select>
               </div>
               
@@ -244,15 +245,15 @@ export const SignUp = () => {
                   className="w-full bg-white/10 border border-white/20 rounded-lg py-2 px-4 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   required
                 >
-                  <option value="" disabled>Select Blood Group</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
+                  <option value="" disabled className="text-black">Select Blood Group</option>
+                  <option value="A+" className="text-black">A+</option>
+                  <option value="A-" className="text-black">A-</option>
+                  <option value="B+" className="text-black">B+</option>
+                  <option value="B-" className="text-black">B-</option>
+                  <option value="AB+" className="text-black">AB+</option>
+                  <option value="AB-" className="text-black">AB-</option>
+                  <option value="O+" className="text-black">O+</option>
+                  <option value="O-" className="text-black">O-</option>
                 </select>
               </div>
               
@@ -278,7 +279,7 @@ export const SignUp = () => {
                   value={formData.mobileNumber}
                   onChange={handleChange}
                   className="w-full bg-white/10 border border-white/20 rounded-lg py-2 px-4 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="+1 (123) 456-7890"
+                  placeholder="+91 9876543210"
                   required
                 />
               </div>
@@ -292,7 +293,7 @@ export const SignUp = () => {
                   value={formData.emergencyContact}
                   onChange={handleChange}
                   className="w-full bg-white/10 border border-white/20 rounded-lg py-2 px-4 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="+1 (123) 456-7890"
+                  placeholder="+91 9876543210"
                   required
                 />
               </div>
