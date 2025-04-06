@@ -45,20 +45,19 @@ const Navbar = () => {
           {/* User Profile */}
           <div className="flex items-center space-x-3">
             <div className="text-right hidden md:block">
-              <p className="text-sm font-medium text-white">{user?.name || 'System Admin'}</p>
-              <p className="text-xs text-white/60">{user?.role || 'Administrator'}</p>
+              <p className="text-sm font-medium text-white">{user?.name || 'User Name'}</p>
+              <p className="text-xs text-white/60">{user?.email || 'Email ID'}</p>
             </div>
             <div className="relative group">
               <div className="w-9 h-9 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center text-white font-medium cursor-pointer">
                 {user?.name?.charAt(0).toUpperCase() || 'A'}
               </div>
               
-              {/* Dropdown Menu */}
+              {/* Dropdown Menu
               <div className="absolute right-0 mt-2 w-48 bg-white/10 backdrop-blur-lg border border-white/10 rounded-md shadow-lg py-1 z-50 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <a href="#" className="block px-4 py-2 text-sm text-white hover:bg-white/20">Your Profile</a>
                 <a href="#" className="block px-4 py-2 text-sm text-white hover:bg-white/20">Settings</a>
-                <a href="#" className="block px-4 py-2 text-sm text-white hover:bg-white/20">Log out</a>
-              </div>
+              </div> */}
             </div>
           </div>
 

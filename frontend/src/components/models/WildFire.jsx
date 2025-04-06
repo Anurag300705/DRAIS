@@ -41,7 +41,7 @@ export const Wildfire = () => {
         Topography_Slope: parseFloat(formData.topographySlope)
       };
 
-      const response = await axios.post('http://localhost:3000/model/wildfire', inputData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/model/wildfire`, inputData);
       setPrediction(response.data.burn_area);
     } catch (err) {
       setError(err.response?.data?.error || 'Prediction failed');

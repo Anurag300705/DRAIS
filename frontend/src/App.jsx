@@ -78,11 +78,11 @@ function App() {
               <Route path="/Flood" element={<Flood />} />
               <Route path="/wildfire" element={<Wildfire />} />
               <Route path="/command-center" element={<CommandCenter />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/layout" element={<Layout />} />
+              {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+              <Route path="/dashboard" element={<Layout />} />
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Navigate to="/Layout" />} />
-              <Route path="/signup" element={<Navigate to="/Layout" />} />
+              <Route path="/login" element={<Navigate to="/dashboard" />} />
+              <Route path="/signup" element={<Navigate to="/dashboard" />} />
             </>
           ) : (
             <>

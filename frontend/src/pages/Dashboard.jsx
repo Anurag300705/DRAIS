@@ -16,7 +16,7 @@ export const Dashboard = () => {
       {/* Header Section */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Welcome back, {user?.name || 'Admin'}</h1>
+          <h1 className="text-3xl font-bold">Welcome, {user?.name || 'Admin'}</h1>
           <p className="text-white/60">Here's what's happening in your area</p>
         </div>
         <div className="flex items-center space-x-4">

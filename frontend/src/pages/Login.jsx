@@ -84,7 +84,7 @@ export const Login = () => {
     console.log('Logged in successfully');
     
     // Enable navigation to layout page
-    navigate('/layout');
+    navigate('/dashboard');
   } catch (err) {
     // Error handling code remains the same
   } finally {

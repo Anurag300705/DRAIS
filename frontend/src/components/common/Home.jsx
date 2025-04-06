@@ -1,3 +1,4 @@
+//Home.jsx
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
@@ -16,7 +17,10 @@ import {
   FaTwitter,
   FaFacebook,
   FaLinkedin,
-  FaInstagram
+  FaInstagram,
+  FaSignOutAlt,
+  FaSignInAlt,
+  FaFacebookMessenger
 } from 'react-icons/fa';
 import { IoMdAlert } from 'react-icons/io';
 import { FaFire } from "react-icons/fa";
@@ -53,14 +57,14 @@ const Home = () => {
 
   const disasterTypes = [
     { icon: <WiEarthquake className="text-5xl text-orange-500" />, name: "Earthquakes", to:"/EarthQuake"},
-    { icon: <FaFire className="text-5xl text-red-500" />, name: "Wildfires", to:"/wildfires"},
-    { icon: <MdFlood className="text-5xl text-blue-500" />, name: "Floods", to:"/Floods"},
+    { icon: <FaFire className="text-5xl text-red-500" />, name: "Wildfires", to:"/wildfire"},
+    { icon: <MdFlood className="text-5xl text-blue-500" />, name: "Floods", to:"/Flood"},
     { icon: <WiStormWarning className="text-5xl text-purple-500" />, name: "Hurricanes", to:"/Hurricanes"}
   ];
 
   const testimonials = [
     {
-      quote: "DisasterAlert helped us evacuate 3 hours before the tsunami hit. Their early warning system saved thousands.",
+      quote: "DRAIS helped us evacuate 3 hours before the tsunami hit. Their early warning system saved thousands.",
       author: "Maria G., Disaster Response Coordinator"
     },
     {
@@ -81,14 +85,14 @@ const Home = () => {
   }, [testimonials.length]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-r from-gray-50 to-gray-200 animate-fade-in">
 
       <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-md z-50">
         <div className="container mx-auto px-4 py-3 md:px-6">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <FaShieldAlt className="text-indigo-600 text-3xl mr-2" />
-              <span className="text-xl font-bold text-indigo-900">DisasterAlert</span>
+              <span className="text-xl font-bold text-indigo-900">DRAIS</span>
             </div>
             
             <div className={`fixed top-0 right-0 h-screen w-64 md:w-auto md:h-auto md:static bg-white md:bg-transparent shadow-2xl md:shadow-none transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out z-50 flex flex-col md:flex-row items-start md:items-center pt-16 md:pt-0 px-6 md:px-0`}>
@@ -107,14 +111,14 @@ const Home = () => {
               <a href="#features" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
                 <FaChartLine className="mr-2" /> Features
               </a>
-              <a href="#report" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
+              {/* <a href="#report" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
                 <FaExclamationTriangle className="mr-2" /> Report
-              </a>
+              </a> */}
               <a href="#contact" className="my-2 md:my-0 md:mx-4 flex items-center text-gray-700 hover:text-indigo-600 transition-colors">
                 <FaPhoneAlt className="mr-2" /> Contact
               </a>
               <button className="mt-4 md:mt-0 md:ml-4 px-4 py-2 bg-indigo-600 text-white rounded-lg flex items-center hover:bg-indigo-700 transition-colors">
-                <FaBell className="mr-2" /> Get Alerts
+                <FaSignInAlt className="mr-2" /> Login
               </button>
             </div>
             
@@ -141,7 +145,7 @@ const Home = () => {
                 <br />Detection & Response
               </h1>
               <p className="text-lg text-gray-600 mb-8 max-w-lg">
-                Leveraging AI and IoT to predict, detect, and respond to emergencies faster than ever before
+                Leveraging AI to predict, detect, and respond to emergencies faster than ever before
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg flex items-center justify-center hover:bg-indigo-700 transition-colors shadow-md">
@@ -149,7 +153,7 @@ const Home = () => {
                 </button>
                 <button className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-lg flex items-center justify-center hover:bg-indigo-50 transition-colors">
                   <FaCloud className="mr-2" />
-                  <NavLink to='/layout'>Visit Full Site</NavLink> 
+                  <NavLink to='/dashboard'>Visit Dashboard</NavLink> 
                 </button>
               </div>
             </div>
@@ -193,7 +197,7 @@ const Home = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              How DisasterAlert <span className="text-indigo-600">Protects</span> You
+              How DRAIS <span className="text-indigo-600">Protects</span> You
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Our cutting-edge system combines multiple technologies to keep communities safe
@@ -273,10 +277,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Report Section */}
-      <section id="report" className="py-16 md:py-24 bg-gray-100 ">
+      
+      {/* <section id="report" className="py-16 md:py-24 bg-gray-100 ">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col md:flex-row items-center gap-12">
+        <div className="flex flex-col items-center justify-center gap-12 text-center">
+
             {/* <div className="md:w-1/2">
               <img 
                 src="https://illustrations.popsy.co/amber/security.svg" 
@@ -284,80 +289,50 @@ const Home = () => {
                 className="w-full max-w-md mx-auto"
               />
             </div> */}
-            <div className="md:w-1/2 bg-white rounded-xl p-8 shadow-lg">
-              <h2 className="text-3xl font-bold mb-4">
-                Report an <span className="text-indigo-600">Emergency</span>
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Submit real-time disaster information to alert authorities and nearby citizens
-              </p>
-              
-              <form className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Incident Type</label>
-                  <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    <option value="">Select incident type</option>
-                    <option value="fire">Fire</option>
-                    <option value="flood">Flood</option>
-                    <option value="hurricane">Hurricane</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                  <input 
-                    type="text" 
-                    placeholder="Enter location or use map" 
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Severity (1-10)</label>
-                  <input 
-                    type="range" 
-                    min="1" 
-                    max="10" 
-                    defaultValue="5"
-                    className="w-full h-2 bg-gradient-to-r from-green-500 via-yellow-500 to-red-500 rounded-lg appearance-none cursor-pointer"
-                  />
-                  <div className="flex justify-between text-xs text-gray-500 mt-1">
-                    <span>1 (Mild)</span>
-                    <span>5 (Moderate)</span>
-                    <span>10 (Critical)</span>
-                  </div>
-                </div>
-                
-                <button 
-                  type="submit" 
-                  className="w-full py-3 bg-red-600 text-white rounded-lg font-medium flex items-center justify-center hover:bg-red-700 transition-colors shadow-md"
-                >
-                  <FaExclamationTriangle className="mr-2" /> Send Emergency Alert
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Protect Your Community?</h2>
-          <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of cities and organizations using DisasterAlert to save lives
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-6 py-3 bg-white text-indigo-700 rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-md">
-              Request Demo
-            </button>
-            <button className="px-6 py-3 bg-indigo-500 text-white border border-indigo-400 rounded-lg font-medium hover:bg-indigo-400 transition-colors shadow-md">
-              Contact Sales
-            </button>
-          </div>
-        </div>
-      </section>
+  <div className="container mx-auto px-4 md:px-6">
+    <h2 className="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+    <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+      We would love to hear from you. Please fill out the form below.
+    </p>
+    <form className="space-y-6 max-w-2xl mx-auto">
+      <div>
+        <label className="block text-sm font-medium text-white mb-1">Name</label>
+        <input 
+          type="text" 
+          placeholder="Your Name" 
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-800" 
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-white mb-1">Email</label>
+        <input 
+          type="email" 
+          placeholder="Your Email" 
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-800" 
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-white mb-1">Message</label>
+        <textarea 
+          placeholder="Your Message" 
+          rows="4" 
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-800"
+        ></textarea>
+      </div>
+      <button 
+        type="submit" 
+        className="w-full py-3 bg-white text-indigo-700 rounded-lg font-medium flex items-center justify-center hover:bg-gray-100 transition-colors shadow-md"
+      >
+        <FaFacebookMessenger className="mr-2" /> Send Message
+      </button>
+    </form>
+  </div>
+</section>
+
 
       {/* Footer */}
       <footer id="contact" className="bg-gray-900 text-white mb-0">
@@ -367,9 +342,9 @@ const Home = () => {
             <div className="col-span-1 md:col-span-1">
               <div className="flex items-center mb-4">
                 <FaShieldAlt className="text-indigo-500 text-2xl mr-2" />
-                <span className="text-xl font-bold">DisasterAlert</span>
+                <span className="text-xl font-bold">DRAIS</span>
               </div>
-              <p className="text-gray-400 mb-4">Advanced Disaster Detection & Response System</p>
+              <p className="text-gray-400 mb-4">Disaster Response AI System</p>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
                   <FaTwitter className="text-xl" />
@@ -421,7 +396,7 @@ const Home = () => {
           {/* Bottom Footer */}
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} DisasterAlert. All rights reserved.
+              &copy; {new Date().getFullYear()} DRAIS. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-500 hover:text-white text-sm transition-colors">Privacy Policy</a>
