@@ -33,7 +33,7 @@ export const EarthQuake = () => {
         parseInt(formData.stations)
       ];
 
-      const response = await axios.post('http://localhost:3000/model/earthQuake', {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/model/earthQuake`, {
         input: inputArray
       });
       // console.log(response.data);

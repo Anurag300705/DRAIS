@@ -43,7 +43,7 @@ export const Flood = () => {
     setError(null);
     
     try {
-      const response = await axios.post('http://localhost:3000/model/flood', formData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/model/flood`, formData);
       setPrediction(response.data.probability);
     } catch (err) {
       setError(err.response?.data?.message || 'Prediction failed');

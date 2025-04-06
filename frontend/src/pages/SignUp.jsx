@@ -95,7 +95,7 @@ export const SignUp = () => {
       }));
       
       // Redirect to layout page
-      navigate('/layout');
+      navigate('/dashboard');
     } catch (err) {
       console.error('Signup error:', err);
       
