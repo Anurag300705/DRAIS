@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { Login } from './pages/Login.jsx';
 import { Dashboard } from './pages/Dashboard.jsx';
@@ -8,25 +8,62 @@ import ResourceAllocation from './components/disaster/ResourceAllocation.jsx';
 import TeamManagement from './components/disaster/TeamManagement.jsx';
 import {DisasterMap} from './pages/DisasterMap.jsx';
 import Layout from './components/common/Layout.jsx';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/common/Home.jsx';
 import { Alert } from './components/common/Alert.jsx';
 import { EarthQuake } from './components/models/EarthQuake.jsx';
 import { Flood } from './components/models/Flood.jsx';
 import { Wildfire } from './components/models/WildFire.jsx';
+import { SignUp } from './pages/SignUp.jsx';
+import { loginSuccess } from './redux/slices/authSlice';
+import { validateToken } from './services/api';
 
 function App() {
   const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
+  const [checking, setChecking] = useState(true);
+  
   // Access the user from Redux store
   const user = useSelector((state) => state.auth.user);
-  
-  // Optional: Access other auth state if needed
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
 
-  // For debugging - remove in production
-  console.log('Current user:', user);
-  console.log('Is authenticated:', isAuthenticated);
+  // Check for existing authentication on app load
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        // If we already have a user in Redux state, no need to validate
+        if (isAuthenticated && user) {
+          setChecking(false);
+          return;
+        }
+        
+        // Check if we have a token
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setChecking(false);
+          return;
+        }
+        
+        // Validate the token
+        const userData = await validateToken();
+        if (userData) {
+          dispatch(loginSuccess(userData));
+        }
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+      } finally {
+        setChecking(false);
+      }
+    };
+    
+    checkAuth();
+  }, [dispatch]);
+
+  // Show loading state while checking authentication
+  if (checking) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -44,23 +81,18 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/layout" element={<Layout />} />
               <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Navigate to="/Layout" />} />
+              <Route path="/signup" element={<Navigate to="/Layout" />} />
             </>
           ) : (
             <>
               <Route path="/login" element={<Login />} />
-              <Route path="*" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="*" element={<Navigate to="/login" />} />
             </>
           )}
         </Routes>
       </BrowserRouter>
-      {/* Example of displaying user info */}
-      {user && (
-        <div className="user-info">
-          <h2>Welcome, {user.name}</h2>
-          {/* Add other user details as needed */}
-        </div>
-      )}
-      <h1>Arunanshu</h1>
     </>
   );
 }

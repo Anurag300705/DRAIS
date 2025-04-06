@@ -6,7 +6,6 @@ import { auth } from '../services/firebase.js';
 import { getAuthState, loginSuccess } from '../redux/slices/authSlice';
 // import { printState } from '../redux/slices/authSlice.js';
 
-
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,49 +19,78 @@ export const Login = () => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-    
-    try {
-      // Firebase authentication
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-        console.log('User logged in:', user);
-    
-      // Uncomment when redux is ready
-      dispatch(loginSuccess({ 
-        name: user.displayName || 'User', 
-        email: user.email,
-        uid: user.uid,
-        role: 'admin' // You might want to store roles in your database
-      }));
-    //   const test = dispatch(getAuthState()); // Print the current state to console
-        // console.log('Current state:', test);
-      console.log('Logged in successfully');
-      // Uncomment to enable navigation
-    //   navigate('/');
-    } catch (err) {
-      console.error('Login error:', err);
-      // Handle specific Firebase auth errors
-      switch (err.code) {
-        case 'auth/invalid-email':
-          setError('Invalid email address format.');
-          break;
-        case 'auth/user-disabled':
-          setError('This account has been disabled.');
-          break;
-        case 'auth/user-not-found':
-        case 'auth/wrong-password':
-          setError('Invalid login credentials. Please check your email and password.');
-          break;
-        default:
-            // console.error('Unexpected error:', err);
-          setError('Failed to login. Please try again later.');
-      }
-    
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
+    
+  //   try {
+  //     // Firebase authentication
+  //     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  //     const user = userCredential.user;
+  //       console.log('User logged in:', user);
+    
+  //     // Uncomment when redux is ready
+  //     dispatch(loginSuccess({ 
+  //       name: user.displayName || 'User', 
+  //       email: user.email,
+  //       uid: user.uid,
+  //       role: 'admin' // You might want to store roles in your database
+  //     }));
+  //   //   const test = dispatch(getAuthState()); // Print the current state to console
+  //       // console.log('Current state:', test);
+  //     console.log('Logged in successfully');
+  //     // Uncomment to enable navigation
+  //   //   navigate('/');
+  //   } catch (err) {
+  //     console.error('Login error:', err);
+  //     // Handle specific Firebase auth errors
+  //     switch (err.code) {
+  //       case 'auth/invalid-email':
+  //         setError('Invalid email address format.');
+  //         break;
+  //       case 'auth/user-disabled':
+  //         setError('This account has been disabled.');
+  //         break;
+  //       case 'auth/user-not-found':
+  //       case 'auth/wrong-password':
+  //         setError('Invalid login credentials. Please check your email and password.');
+  //         break;
+  //       default:
+  //           // console.error('Unexpected error:', err);
+  //         setError('Failed to login. Please try again later.');
+  //     }
+    
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // new logic for authentication
+  try {
+    // Firebase authentication
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    console.log('User logged in:', user);
+  
+    // Get user's display name from Firebase or use email as fallback
+    const displayName = user.displayName || user.email.split('@')[0];
+    
+    // Dispatch login success with user data
+    dispatch(loginSuccess({ 
+      name: displayName, 
+      email: user.email,
+      uid: user.uid,
+      role: 'admin' // You might want to store roles in your database
+    }));
+    
+    console.log('Logged in successfully');
+    
+    // Enable navigation to layout page
+    navigate('/layout');
+  } catch (err) {
+    // Error handling code remains the same
+  } finally {
+    setIsLoading(false);
+  }
+};
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     if (!email) {
@@ -189,9 +217,9 @@ export const Login = () => {
           </form>
           
           <div className="mt-6 text-center text-sm text-white/70">
-            Don't have an account?{' '}
-            <a href="#" className="font-medium text-purple-300 hover:text-purple-200">
-              Request access
+           Don't have an account?{' '}
+            <a href="/signup" className="font-medium text-purple-300 hover:text-purple-200">
+              Sign up
             </a>
           </div>
         </div>

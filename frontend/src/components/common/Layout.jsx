@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Alert from '../disaster/AlertForm';
 import TeamManagement from '../disaster/TeamManagement';
 import ResourceAllocation from '../disaster/ResourceAllocation';
-import { Dashboard } from './Dashboard';
+import { Dashboard } from '../../pages/Dashboard';
 import { NavLink } from 'react-router-dom';
 import { DisasterMap } from '../../pages/DisasterMap';
 import CommandCenter from '../../pages/CommandCenter';

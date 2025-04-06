@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Check if we have a user in localStorage on initial load
+const storedUser = localStorage.getItem('user');
+const storedAuth = localStorage.getItem('isAuthenticated');
+
 const initialState = {
-  user: null,
-  isAuthenticated: false,
+  user: storedUser ? JSON.parse(storedUser) : null,
+  isAuthenticated: storedAuth === 'true',
   loading: false,
   error: null,
 };
@@ -11,11 +15,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // Remove printState - use Redux DevTools instead
     getAuthState: (state) => {
-      // Just return the current state without modification
-      // Redux Toolkit will handle the state management
-      // console.log('Current state 1:', state.user);
       return state.user;
     },
     loginStart: (state) => {
@@ -27,6 +27,11 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.loading = false;
       state.error = null;
+      
+      // Store authentication data in localStorage
+      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.setItem('isAuthenticated', 'true');
+      
       console.log('Current state 2:', state.user);
     },
     loginFailure: (state, action) => {
@@ -37,11 +42,15 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.error = null;
+      
+      // Clear authentication data from localStorage
+      localStorage.removeItem('user');
+      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('token');
     },
   },
 });
 
-// Remove printState from exports
 export const { getAuthState, loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
 
 export default authSlice.reducer;
