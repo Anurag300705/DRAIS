@@ -3,6 +3,7 @@ import Navbar from './NavBar';
 import Sidebar from './Sidebar';
 import { useState } from 'react';
 import Alert from '../disaster/AlertForm';
+import { Link } from 'react-router-dom';
 import TeamManagement from '../disaster/TeamManagement';
 import ResourceAllocation from '../disaster/ResourceAllocation';
 import { Dashboard } from '../../pages/Dashboard';
@@ -55,9 +56,9 @@ const Layout = () => {
       <aside className="w-72 bg-white/10 backdrop-blur-md border-r border-white/10 shadow-xl">
       <div className="p-6 border-b border-white/10">
         <h2 className="text-2xl font-bold text-white flex items-center">
-          <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+          <Link className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text" to='/'> 
             DRAIS
-          </span>
+          </Link>
           <span className="ml-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full animate-pulse">
             LIVE
           </span>
